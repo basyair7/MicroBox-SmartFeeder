@@ -7,40 +7,44 @@
 #include "ultrasonic.h"
 #include "variable.h"
 
-#define STEPS 2048
+MyStepper stepper = MyStepper(
+  STEPS,
+  PINOUT_STEPPER[0],
+  PINOUT_STEPPER[1],
+  PINOUT_STEPPER[2],
+  PINOUT_STEPPER[3]
+);
 
-MyStepper stepper(STEPS, PINOUT_STEPPER[0], PINOUT_STEPPER[1], PINOUT_STEPPER[2], PINOUT_STEPPER[3]);
-Ultrasonic hcsr04(TRIG_PIN, ECHO_PIN);
+Ultrasonic hcsr04 = Ultrasonic(TRIG_PIN, ECHO_PIN);
 DS3231rtc rtc;
 
-unsigned long LastTimeGetDistance = 0,  LastTimeStepper = 0;
+unsigned long LastTimeGetDistance = 0, LastTimeStepper = 0;
 unsigned long LastTimeLED = 0, LastTimeMonitor = 0;
 bool stateStepper = false;
 float distance; int capacity;
 
 void __indikator__(void) {
-  if ((unsigned long) (millis() - LastTimeLED) >= 100) {
+  if ((unsigned long)(millis() - LastTimeLED) >= 100) {
     LastTimeLED = millis();
 
-    if (distance < FULL || distance > EMPTY) {
+    if (capacity >= 0) {
       digitalWrite(LED_1, LOW);
       digitalWrite(LED_2, HIGH);
     }
-
-    if (distance >= EMPTY + 1) {
-      digitalWrite(LED_2, LOW);
+    else {
       digitalWrite(LED_1, HIGH);
+      digitalWrite(LED_2, LOW);
     }
   }
 }
 
 void __get_capacity__(void) {
-  if ((unsigned long) (millis() - LastTimeGetDistance) >= 100) {
+  if ((unsigned long)(millis() - LastTimeGetDistance) >= 100) {
     LastTimeGetDistance = millis();
 
     distance = hcsr04.getDistance();
     capacity = map(distance, EMPTY + 1, FULL, 0, 100); // mapping
-    capacity = (capacity <= 0 ? 0 : (capacity >= 100 ? 100 : capacity)); // filter
+    capacity = (capacity <= 0 ? 0 : (capacity >= 100 ? 100 : capacity)); // filter 0-100
   }
 }
 
@@ -72,7 +76,7 @@ void setup() {
   pinMode(LED_2, OUTPUT);
 
   hcsr04.begin();
-  stepper.setSpeed(10);
+  stepper.setSpeed(SPEED_STEPPER);
   rtc.begin();
 }
 
@@ -91,14 +95,15 @@ void loop() {
     }
 
     if (stateStepper && (unsigned long)(millis() - LastTimeStepper) <= 3000) {
-      stepper.step(360);
+      stepper.step(DEGRESS_STEPPER);
     }
+
     if (stateStepper && (unsigned long)(millis() - LastTimeStepper) > 6000 && (unsigned long)(millis() - LastTimeStepper) <= 9000)
     {
-      stepper.step(-360);
+      stepper.step(-DEGRESS_STEPPER);
       stateStepper = false;
     }
   }
 
-  delay(50);
+  delayMicroseconds(100);
 }

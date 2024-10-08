@@ -26,7 +26,7 @@ public:
         return this->__rtc__.now();
     }
 
-    // function to manual adjust RTC time
+    // functional to manual adjust RTC time
     void manualAdjust(
         uint8_t month, uint8_t day, uint16_t year,
         uint8_t hour, uint8_t minute, uint8_t second
@@ -50,9 +50,9 @@ public:
     // function to get the current time
     template <typename T> void time(T* hour, T* minute, T* second) {
         this->__now__ = this->DSnow();
-        if (hour != nullptr)   *hour   = this->__now__.hour();
-        if (minute != nullptr) *minute = this->__now__.minute();
-        if (second != nullptr) *second = this->__now__.second();
+        if (hour != nullptr)   *hour   = this->DSnow().hour();
+        if (minute != nullptr) *minute = this->DSnow().minute();
+        if (second != nullptr) *second = this->DSnow().second();
     }
 
     // function to get the date as a string
@@ -70,9 +70,9 @@ public:
         return this->listDayOfWeek[this->DSnow().dayOfTheWeek()];
     }
 
-private:
+private: 
     char listDayOfWeek[7][12] = {
-        "Sunday", "Monday", "Tuesday", 
+        "Sunday", "Monday", "Tuesday",
         "Wednesday", "Thursday", "Friday",
         "Saturday"
     };

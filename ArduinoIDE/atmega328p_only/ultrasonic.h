@@ -25,7 +25,7 @@ public:
     delayMicroseconds(10);
     digitalWrite(this->__TriggerPin__, LOW);
 
-    return pulseIn(this->__EchoPin__, HIGH);
+    return pulseIn(this->__EchoPin__, HIGH) * 0.034 / 2;
   }
 
 private:

@@ -61,7 +61,7 @@ void __get_capacity__(void) {
 
 		distance = ultrasonic.getDistance();
 		capacity = map(distance, EMPTY + 1, FULL, 0, 100); // mapping
-		capacity = (capacity <= 0 ? 0 : (capacity >= 100 ? 100 : capacity)); // filter
+		capacity = (capacity <= 0 ? 0 : (capacity >= 100 ? 100 : capacity)); // filter 0 - 100
 	}
 }
 

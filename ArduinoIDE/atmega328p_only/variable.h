@@ -12,6 +12,13 @@
 #define LED_1     3     // red
 #define LED_2     2     // green
 
-inline const int16_t PINOUT_STEPPER[4] = {8, 10, 9, 11};
-inline String List_Time[3]             = {"7:0:0", "12:30:0", "17:0:0"};
+#define EMPTY     18    // cm
+#define FULL      5     // cm
+
+#define STEPS           2048
+#define SPEED_STEPPER   10
+#define DEGRESS_STEPPER 360
+
+inline const uint16_t PINOUT_STEPPER[4] = {8, 10, 9, 11};
+inline const String List_Time[3]        = {"7:0:0", "12:30:0", "17:0:0"};
 

@@ -3,6 +3,7 @@
 */
 
 #pragma once
+
 #include <Arduino.h>
 
 #define NAMEPROJECT     "MicroBOX (SmartFeeder)"
@@ -16,11 +17,10 @@
 
 // class Info {
 // protected:
-//   const String __NAME_PROJECT__    = NAMEPROJECT;
-//   const String __CODE_NAME__       = CODENAME;
-//   const String __VERSION_PROJECT__ = VERSIONPROJECT;
-//   const String __HW_VERSION__      = HWVERSION;
-//   const String __SW_VERSION__      = SWVERSION;
-//   const String __BUILD_DATE__      = BUILDDATE;
-//   const String __REGION__          = REGION;
+//     const String __NAME_PROJECT__    = NAMEPROJECT;
+//     const String __CODE_NAME__       = CODENAME;
+//     const String __VERSION_PROJECT__ = VERSIONPROJECT;
+//     const String __HW_VERSION__      = HWVERSION;
+//     const String __SW_VERSION__      = SWVERSION;
+//     const String __REGION__          = REGION;
 // };
