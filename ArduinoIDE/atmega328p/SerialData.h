@@ -10,14 +10,21 @@
 
 class SerialData {
 public:
-  SerialData(uint8_t __rx__, uint8_t __tx__) : __mySerial__(__rx__, __tx__) { /*TODO(Not yet implemented)*/ }
-
+  /* Requitment :
+    * RX : digital GPIO arduino
+    * TX : digital GPIO arduino
+    * JsonSize : 50, 200, 500, 1024
+  */
+  SerialData(uint8_t __rx__, uint8_t __tx__, uint16_t jsonSize) : __mySerial__(__rx__, __tx__), __jsonSize__(jsonSize) {
+    /*TODO(Not yet implemented)*/ 
+  }
+  
   void begin(uint32_t baudRate) {
     this->__mySerial__.begin(baudRate);
   }
 
   void reqData() {
-    DynamicJsonDocument data(500);
+    DynamicJsonDocument data(this->__jsonSize__);
     data["reqdata"] = 1;
     serializeJson(data, this->__mySerial__);
   }
@@ -40,7 +47,7 @@ public:
   void getData(long __delay__) {
     if ((unsigned long)(millis() - this->LastTimeGetData) >= (unsigned long)__delay__) {
       this->LastTimeGetData = millis();
-      StaticJsonDocument<500> data;
+      DynamicJsonDocument data(this->__jsonSize__);
 
       DeserializationError err = deserializeJson(data, this->__mySerial__);
       if (!err) {
@@ -54,7 +61,6 @@ public:
           this->__Timer2__ = data["timers"]["timer2"].as<String>();
           this->__Timer3__ = data["timers"]["timer3"].as<String>();
         }
-
       }
       else {
         Serial.print(F("Error Deserialization : "));
@@ -70,5 +76,6 @@ private:
   unsigned long LastTimeGetData = 0;
 
 private:
+  uint16_t __jsonSize__;
   SoftwareSerial __mySerial__;
 };

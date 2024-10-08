@@ -16,8 +16,8 @@ public:
       delay(100);
     }
 
-    if (__rtc__.lostPower()) {
-      Serial.println(F("RTC Lost Power, setting the time!"));
+    if (this->__rtc__.lostPower()) {
+      Serial.println(F("Status : RTC Lost Power, setting the time!"));
       this->__rtc__.adjust(DateTime(F(__DATE__), F(__TIME__)));
     }
   }
@@ -26,8 +26,9 @@ public:
     return this->__rtc__.now();
   }
 
+  // function to manual adjust RTC time
   void manualAdjust(
-    uint8_t month, uint8_t day, uint8_t year,
+    uint8_t month, uint8_t day, uint16_t year,
     uint8_t hour, uint8_t minute, uint8_t second)
   {
     this->__rtc__.adjust(DateTime(year, month, day, hour, minute, second));
@@ -54,11 +55,6 @@ public:
     if (second != nullptr) *second = this->__now__.second();
   }
 
-  // function to get day of week
-  String getDayOfWeek(void) {
-    return this->listDayOfWeek[this->__rtc__.now().dayOfTheWeek()];
-  }
-
   // function to get the date as a string
   String datestr(void) {
     return String(this->__rtc__.now().month()) + "/" + String(this->__rtc__.now().day()) + "/" + String(this->__rtc__.now().year());
@@ -67,6 +63,11 @@ public:
   // function to get the time as a string 
   String timestr(void) {
     return String(this->__rtc__.now().hour()) + ":" + String(this->__rtc__.now().minute()) + ":" + String(this->__rtc__.now().second());
+  }
+
+  // function to get day of week
+  String getDayOfWeek(void) {
+    return this->listDayOfWeek[this->__rtc__.now().dayOfTheWeek()];
   }
 
 private:

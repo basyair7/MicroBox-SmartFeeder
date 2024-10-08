@@ -11,6 +11,9 @@ firmware             = "firmware" + extension_firmware
 filesys              = "littlefs" + extension_filesys  # or spiffs.bin
 dest_path            = "firmware"
 
+# list board no filesystem
+listBoard = ["uno", "megaatmega2560"]
+
 class Move:
     def __init__(self) -> None:
         self.build_dir = f".pio/build/{board}"
@@ -72,7 +75,10 @@ def main(target, source, env):
 
     # Process files
     move_file = Move();
-    move_file.process_file(out_file_firmware, out_file_fs)
+    if (board in listBoard):
+        move_file.process_file(out_file_firmware)
+    else:
+        move_file.process_file(out_file_firmware, out_file_fs)
 
 env = DefaultEnvironment()
 env.AddPostAction("$BUILD_DIR/${PROGNAME}"+extension_firmware, main)

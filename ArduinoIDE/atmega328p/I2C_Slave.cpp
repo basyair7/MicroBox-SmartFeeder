@@ -14,15 +14,15 @@ void I2CSlave_getData(int* capacity, bool* auto_state, bool* switch_state) {
   *capacity     = __capacity__;
 }
 
-void receiveEvent() {
-  String rawJson;
+void receiveEvent(int bytes) {
+  String raw_data;
   while (Wire.available()) {
     char c = Wire.read();
-    rawJson += c;
+    raw_data += c;
   }
 
   DynamicJsonDocument data(__jsonSize__);
-  DeserializationError err = deserializeJson(data, rawJson);
+  DeserializationError err = deserializeJson(data, raw_data);
   if (!err) {
     __auto_state__   = data["a"];
     __switch_state__ = data["m"];

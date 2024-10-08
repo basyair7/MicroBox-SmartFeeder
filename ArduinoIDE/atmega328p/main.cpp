@@ -3,8 +3,8 @@
 */
 
 #include "main.h"
-#include <ArduinoJson.h>
 
+// String Timer1, Timer2, Timer3;
 bool auto_state, switch_state;
 int capacity;
 
@@ -20,9 +20,9 @@ void MyProgram::__autoFeeder__(void) {
   }
 
   if (this->stateStepper1) {
+    /*
     for (int i = 0; i < 4; i++) {
-      if ((unsigned long)(millis() - this->LastTimeStepper1) <= 3000) 
-      {
+      if ((unsigned long)(millis() - this->LastTimeStepper1) <= 3000) {
         this->stepper.step(DEGRESS_STEPPER);
       }
 
@@ -32,6 +32,17 @@ void MyProgram::__autoFeeder__(void) {
       }
 
       this->stateStepper1 = (i == 3 ? false : true);
+    }
+    */
+
+    if ((unsigned long)(millis() - this->LastTimeStepper1) <= 3000) {
+      this->stepper.step(DEGRESS_STEPPER);
+    }
+
+    if ((unsigned long)(millis() - this->LastTimeStepper1) > 6000 && (unsigned long)(millis() - this->LastTimeStepper1) <= 9000)
+    {
+      this->stepper.step(-DEGRESS_STEPPER);
+      this->stateStepper1 = false;
     }
   }
 }
@@ -54,9 +65,9 @@ void MyProgram::__monitor__(void) {
     this->LastTimeMonitor = millis();
 
     Serial.print(F("AUTO : "));
-    Serial.println(auto_state ? "Enable" : "Disable");
+    Serial.println(auto_state ? F("Enable") : F("Disable"));
     Serial.print(F("Switch : "));
-    Serial.println(switch_state ? "Open" : "Close");
+    Serial.println(switch_state ? F("Open") : F("Close"));
 
     Serial.println();
     Serial.print(F("Capacity : "));
@@ -77,11 +88,12 @@ void MyProgram::__setup__(void) {
   // serialData.begin(9600);
   I2CSlave_Init(I2C_MASTER_ADDR, JSONSIZE);
 
-  this->stepper.setSpeed(10);
+  this->stepper.setSpeed(SPEED_STEPPER);
   this->rtc.begin();
 }
 
 void MyProgram::__main__(void) {
+  // get data from nodemcu
   I2CSlave_getData(&capacity, &auto_state, &switch_state);
   this->__monitor__();
 
