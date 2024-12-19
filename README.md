@@ -9,7 +9,11 @@ Project Akhir Pelatihan BLK :
 - ArduinoIDE : Berisi program yang menggunakan aplikasi Arduino IDE
 
 ## Version
-- VERSION PROJECT : 1.0
-- HW VERSION	  : 1.0.0
-- SW VERSION	  : 1.0.1
+- VERSION PROJECT : 2.0.0
+- HW VERSION	  : 
+    -> ESP32      : 2.0.0
+    -> ESP8266    : 1.0.0
+- SW VERSION	  : 
+    -> ESP32      : 1.2.0
+    -> ESP8266    : 1.0.1
 
