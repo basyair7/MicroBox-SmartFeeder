@@ -166,8 +166,8 @@ void ThisRTOS::vTask2(void *pvParameter) {
 
     // Initialize WiFi program
     ProgramWiFi.setup(
-        SSID_STA, PASSWORD_STA,
-        SSID_AP, PASSWORD_AP
+        WIFI_SSID_STA_DEFAULT, WIFI_PSK_STA_DEFAULT,
+        WIFI_SSID_AP_DEFAULT, WIFI_PSK_AP_DEFAULT
     );
     ProgramWiFi.initWiFi(x_state);
 
