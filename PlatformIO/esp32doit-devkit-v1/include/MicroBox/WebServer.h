@@ -71,15 +71,21 @@ class WebServerClass : protected Info_t {
         // Private methods for handling different web server functionalities
 
         /**
+         * Serve CSS and JavaScript files.
+         */
+        void Run_css_js_WebServer(void);
+
+        /**
+         * Serve Routes
+         */
+        void Routes(void);
+
+        /**
          * Serve the recovery page.
          * @param req Pointer to the web server request.
          */
         void RecoveryPage(AsyncWebServerRequest *req);
 
-        /**
-         * Serve CSS and JavaScript files.
-         */
-        void Run_css_js_WebServer(void);
 
         /**
          * Enable Blynk functionality.
@@ -128,8 +134,8 @@ class WebServerClass : protected Info_t {
         String __LOCALIP__;       ///< Local IP address of the server
         uint16_t __PORT__;        ///< Port number for the server
         AsyncWebServer serverAsync; ///< Async web server instance
-        MyEEPROM myeeprom;        ///< EEPROM handler object
         AsyncWebSocket ws;        ///< Async websocket server instance
+        MyEEPROM myeeprom;        ///< EEPROM handler object
 };
 
 #if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_WebServer)
