@@ -27,7 +27,7 @@ inline const uint16_t PINOUT_STEPPER[2] = {25, 26};  ///< Pins for the stepper m
 #define PIN_ECHO            12  ///< Pin for the ultrasonic sensor echo
 
 // Feeding schedule for the automatic feeder
-inline const String FeedingSchedule[3] = {"7:00:00", "12:00:00", "17:00:00"};  ///< Feeding times
+inline const String FeedingSchedule[3] = {"7:0:0", "12:0:0", "17:0:0"};  ///< Feeding times
 
 // Constants for stepper motor control
 #define DEGRESS_STEPPER 360  ///< Stepper motor degrees per step
