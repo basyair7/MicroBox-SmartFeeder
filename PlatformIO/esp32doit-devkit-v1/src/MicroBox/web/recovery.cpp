@@ -18,7 +18,7 @@ void WebServerClass::RecoveryPage(AsyncWebServerRequest *req) {
     // get IP Address
     this->__LOCALIP__ = req->client()->localIP().toString().c_str();
 
-    const std::string placeholders[] = {
+    const String placeholders[] = {
         "%LOCALIP%",
         "%VERSIONPROJECT%", "%HWVERSION%", "%SWVERSION%",
         "%BUILDDATE%", "%FIRMWAREREGION%",
@@ -27,7 +27,7 @@ void WebServerClass::RecoveryPage(AsyncWebServerRequest *req) {
         "%LOCALIP%", "%LOCALIP%"
     };
 
-    const std::string tags_html[] = {
+    const String tags_html[] = {
         this->__LOCALIP__.c_str(),
         this->projectVersion.c_str(),
         this->hardwareVersion.c_str(),
@@ -46,7 +46,7 @@ void WebServerClass::RecoveryPage(AsyncWebServerRequest *req) {
 
     // Replace page
     for (size_t i = 0; i < std::size_t(tags_html); ++i) {
-        page.replace(placeholders[i].c_str(), tags_html[i].c_str());
+        page.replace(placeholders[i], tags_html[i]);
     }
 
     req->send(200, TEXTHTML, page);
