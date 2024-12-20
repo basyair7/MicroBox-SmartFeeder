@@ -74,14 +74,14 @@ void FeederSys_run() {
     bool read_auto_control = myeeprom_prog.read(ADDR_EEPROM_AUTO_CONTROL);
     
     // Check water turbidity and control the relay accordingly
-    if (WaterTurbidity.NTU_value >= 1) {
+    if (WaterTurbidity.NTU_value >= 1.3 || (PHSensor.PH_value <= 6.5 || PHSensor.PH_value >= 7.2)) {
         digitalWrite(PIN_RELAY, ON);
     } else {
         digitalWrite(PIN_RELAY, OFF);
     }
 
     // Check the capacity of the ultrasonic sensor
-    if (ultrasonic_capacity > 0 && WaterTurbidity.NTU_value <= 1) {
+    if (ultrasonic_capacity > 0 && WaterTurbidity.NTU_value <= 1.3) {
         // Run automatic feeder system if the control mode is set to auto
         if (read_auto_control) {
             FeederSys_auto();
