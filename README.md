@@ -27,6 +27,7 @@ Project Akhir Pelatihan BLK :
     </tr>
     <tr>
         <td>HW VERSION</td>
+        <td>:</td>
         <td>
             <tr>
                 <td>-> ESP32</td>
@@ -42,6 +43,7 @@ Project Akhir Pelatihan BLK :
     </tr>
     <tr>
         <td>SW VERSION</td>
+        <td>:</td>
         <td>
             <tr>
                 <td>-> ESP32</td>
