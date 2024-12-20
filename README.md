@@ -28,34 +28,30 @@ Project Akhir Pelatihan BLK :
     <tr>
         <td>HW VERSION</td>
         <td>:</td>
-        <td>
-            <tr>
-                <td>-> ESP32</td>
-                <td>:</td>
-                <td>2.0.0</td>
-            </tr>
-            <tr>
-                <td>-> ESP8266</td>
-                <td>:</td>
-                <td>1.0.0</td>
-            </tr>
-        </td>
+        <tr>
+            <td>-> ESP32</td>
+            <td>:</td>
+            <td>2.0.0</td>
+        </tr>
+        <tr>
+            <td>-> ESP8266</td>
+            <td>:</td>
+            <td>1.0.0</td>
+        </tr>
     </tr>
     <tr>
         <td>SW VERSION</td>
         <td>:</td>
-        <td>
-            <tr>
-                <td>-> ESP32</td>
-                <td>:</td>
-                <td>1.2.0</td>
-            </tr>
-            <tr>
-                <td>-> ESP8266</td>
-                <td>:</td>
-                <td>1.0.1</td>
-            </tr>
-        </td>
+        <tr>
+            <td>-> ESP32</td>
+            <td>:</td>
+            <td>1.2.0</td>
+        </tr>
+        <tr>
+            <td>-> ESP8266</td>
+            <td>:</td>
+            <td>1.0.1</td>
+        </tr>
     </tr>
 </tbody>
 </table>
