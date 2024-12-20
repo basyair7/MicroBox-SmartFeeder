@@ -45,22 +45,26 @@ bool switch_state; ///< State variable for switch control
  * @details When this virtual pin is set, the reboot state is triggered and
  *          stored in the `RebootState` variable.
  */
+/*
 BLYNK_WRITE(V4) {
     LastTimeReboot = millis();
     RebootState = true;
 }
+*/
 
 /**
  * @brief Disables Blynk mode or switch WiFi mode on WIFI_AP.
  * @param V3 Virtual pin for Blynk mode disable.
  * @details Saves the state to EEPROM, delays for a stable reboot, and triggers a restart.
  */
+/*
 BLYNK_WRITE(V3) {
     myeeprom.save_wifi_state(false);
     delay(50);
     LastTimeReboot = millis();
     RebootState = true;
 }
+*/
 
 /**
  * @brief Manages manual feeder via Blynk.
@@ -87,13 +91,40 @@ BLYNK_WRITE(V1) {
 }
 
 /**
+ * @brief Sends Water Turbidity sensor data to Blynk.
+ * @details Periodically transmits the NTU value to a virtual pin.
+ *          - Virtual pin : V4
+ */
+void sendNTUValue(void) {
+    static unsigned long LastMillis_SendData = 0;
+    if ((unsigned long) (millis() - LastMillis_SendData) >= 100L) {
+        LastMillis_SendData = millis();
+        Blynk.virtualWrite(V4, WaterTurbidity.NTU_value);
+    }
+}
+
+/**
+ * @brief Sends PH sensor data to Blynk.
+ * @details Periodically transmits the PH level to a virtual pin.
+ *          - Virtual pin : V3
+ */
+void sendPHValue(void) {
+    static unsigned long LastMillis_SendData = 0;
+    if ((unsigned long) (millis() - LastMillis_SendData) >= 100L) {
+        LastMillis_SendData = millis();
+        Blynk.virtualWrite(V3, PHSensor.PH_value);
+    }
+}
+
+/**
  * @brief Sends ultrasonic sensor data to Blynk.
  * @details Periodically transmits the capacity level to a virtual pin.
+ *          - Virtual pin : V0
  */
-unsigned long LastMillis_SendCapacity = 0;
 void sendCapacity(void) {
-    if ((unsigned long) (millis() - LastMillis_SendCapacity) >= 100L) {
-        LastMillis_SendCapacity = millis();
+    static unsigned long LastMillis_SendData = 0;
+    if ((unsigned long) (millis() - LastMillis_SendData) >= 100L) {
+        LastMillis_SendData = millis();
         Blynk.virtualWrite(V0, ultrasonic_capacity);
     }
 }
@@ -115,6 +146,8 @@ void Blynk_setup() {
             ProgramWiFi.__PASSWORD_STA__.c_str()
         );
         Timer.setInterval(100L, sendCapacity);
+        Timer.setInterval(100L, sendNTUValue);
+        Timer.setInterval(100L, sendPHValue);
     }
 }
 
